@@ -2,8 +2,22 @@ import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import { AppLayout } from "../../components/AppLayout/AppLayout";
 
 export default function NewPost() {
-    return <div><h1>This is new</h1></div>;
+  const handleClick=async()=>{
+         const response=await fetch(`/api/generatePost`,{
+          method:'POST'
+        });
+        const json=await response.json()
+        console.log('Result:',json)
   }
+    return (
+    <div>
+      <h1>This is new</h1>
+      <button className="btn" onClick={handleClick}>
+          Generate
+      </button>
+    
+    </div>
+  )}
   NewPost.getLayout=function getLayout(page,pageProps){
     return <AppLayout {...pageProps}>{page}</AppLayout>
   }
