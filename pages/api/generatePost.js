@@ -24,7 +24,7 @@ export default async function handler(req, res) {
     //             } `,
     //     }
     // )
-    const PostContentResponse=await openai.createChatCompletion({
+    const postContentResponse=await openai.createChatCompletion({
         modal:'gpt-3.5-turbo',
         temperature:0,
         messages:[{
@@ -38,7 +38,7 @@ export default async function handler(req, res) {
         }]
 
     })
-    console.log('response:',PostContentResponse.data.choices[0]?.message?.content);
+    console.log('response:',postContentResponse.data.choices[0]?.message?.content);
     // res.status(200).json({
     //      post:JSON.parse( response.data.choices[0]?.text.split("\n").join("")) })
   }

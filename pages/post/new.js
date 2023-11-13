@@ -30,7 +30,7 @@ export default function NewPost() {
                 Generate a blog post on topc of:
               </strong>
             </label>
-            <textarea className="resize-none border border-slate-500 w-full block my-2 px-4 py-2 rounded-sm" value={topic} onClick={e=>setTopic(e.target.value)}/>
+            <textarea className="resize-none border border-slate-500 w-full block my-2 px-4 py-2 rounded-sm" value={topic} onChange={e=>setTopic(e.target.value)}/>
         </div>
         <label>
               <strong>
@@ -38,7 +38,7 @@ export default function NewPost() {
               </strong>
             </label>
             <textarea 
-            className="resize-none border border-slate-500 w-full block my-2 px-4 py-2 rounded-sm"value={keywords} onClick={e=>setKeywords (e.target.value)}/>
+            className="resize-none border border-slate-500 w-full block my-2 px-4 py-2 rounded-sm"value={keywords} onChange={e=>setKeywords (e.target.value)}/>
         <div>
           
         </div>
