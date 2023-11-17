@@ -14,8 +14,8 @@ export default function NewPost() {
           headers:{
             'content-type':'application/json'
           },
-          body:JSON.stringify(topic,keywords)
-
+          body:JSON.stringify({topic,keywords})
+         
         });
         const json=await response.json()
         console.log('Result:',json.post.postContent)
@@ -27,7 +27,7 @@ export default function NewPost() {
         <div>
             <label>
               <strong>
-                Generate a blog post on topc of:
+                Generate a blog post on topic of:
               </strong>
             </label>
             <textarea className="resize-none border border-slate-500 w-full block my-2 px-4 py-2 rounded-sm" value={topic} onChange={e=>setTopic(e.target.value)}/>
@@ -38,7 +38,7 @@ export default function NewPost() {
               </strong>
             </label>
             <textarea 
-            className="resize-none border border-slate-500 w-full block my-2 px-4 py-2 rounded-sm"value={keywords} onChange={e=>setKeywords (e.target.value)}/>
+            className="resize-none border border-slate-500 w-full block my-2 px-4 py-2 rounded-sm" value={keywords} onChange={e=>setKeywords(e.target.value)}/>
         <div>
           
         </div>
