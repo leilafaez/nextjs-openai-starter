@@ -9,18 +9,22 @@ export default function NewPost() {
 
   const handleSubmit=async(e)=>{
           e.preventDefault();
-         const response=await fetch(`/api/generatePost`,{
-          method:'POST',
-          headers:{
-            'content-type':'application/json'
-          },
-          body:JSON.stringify({topic,keywords})
-         
-        });
-        const json=await response.json()
-        console.log('Result:',json.post.postContent)
-        setPostContent(json.post.postContent)
-  }
+          try {
+            const response = await fetch(`/api/generatePost`, {
+              method: "POST",
+              headers: {
+                "content-type": "application/json",
+              },
+              body: JSON.stringify({ topic, keywords }),
+            });
+            const json = await response.json();
+            console.log("JSON res:", json);
+            console.log("Result:", json.post.postContent);
+            setPostContent(json.post.postContent);
+          } catch (e) {
+            console.error("ERROR:", e);
+          }
+}
     return (
     <div>
        <form onSubmit={handleSubmit}>

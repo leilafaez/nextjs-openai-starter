@@ -116,6 +116,7 @@ export default withApiAuthRequired (async function handler(req, res) {
     userId: userProfile._id,
     created: new Date(),
   });
+  
   res.status(200).json({
     post
   });
