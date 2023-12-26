@@ -11,7 +11,7 @@ export default withApiAuthRequired (async function handler(req, res) {
   });
 
   if(!userProfile?.availableTokens){
-    res.status(403);
+    res.status(403).json({ error: "Forbidden" });
     return;
   }
 
@@ -107,20 +107,20 @@ export default withApiAuthRequired (async function handler(req, res) {
     }
   })
 
-  const post = await db.collection("posts").insertOne({
-    postContent,
-    title,
-    metaDescription,
-    topic,
-    keywords,
-    userId: userProfile._id,
-    created: new Date(),
-  });
+ const post = await db.collection("posts").insertOne({
+   postContent,
+   title,
+   metaDescription,
+   topic,
+   keywords,
+   userId: userProfile._id,
+   created: new Date(),
+ });
 
-  res.status(200).json({
-    post :{
-      postContent
-    }
-  });
+ res.status(200).json({
+   post: {
+     postContent,
+   },
+ });
   
 })
