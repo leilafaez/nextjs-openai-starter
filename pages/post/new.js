@@ -7,24 +7,35 @@ export default function NewPost() {
   const[topic ,setTopic]=useState('')
   const[keywords ,setKeywords]=useState('')
 
-  const handleSubmit=async(e)=>{
-          e.preventDefault();
-          try {
-            const response = await fetch(`/api/generatePost`, {
-              method: "POST",
-              headers: {
-                "content-type": "application/json",
-              },
-              body: JSON.stringify({ topic, keywords }),
-            });
-            const json = await response.json();
-            console.log("JSON res:", json);
-            console.log("Result:", json.post.postContent);
-            setPostContent(json.post.postContent);
-          } catch (e) {
-            console.error("ERROR:", e);
-          }
-}
+ const handleSubmit = async (e) => {
+   e.preventDefault();
+   try {
+     const response = await fetch(`/api/generatePost`, {
+       method: "POST",
+       headers: {
+         "Content-Type": "application/json",
+       },
+       body: JSON.stringify({ topic, keywords }),
+     });
+
+     if (!response.ok) {
+       const errorResponse = await response.json();
+       console.error("Error response:", errorResponse);
+      
+       return;
+     }
+
+     const json = await response.json();
+     if (json.post && json.post.postContent) {
+       setPostContent(json.post.postContent);
+     } else {
+       // Handle the case where post or post.postContent is undefined
+       console.error("Error: Post content is undefined.");
+     }
+   } catch (error) {
+     console.error("ERROR:", error);
+   }
+ };
     return (
     <div>
        <form onSubmit={handleSubmit}>
