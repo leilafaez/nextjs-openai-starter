@@ -4,6 +4,7 @@ import clientPromise from "../../lib/mongodb";
 import { ObjectId } from "mongodb/lib";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHashtag } from "@fortawesome/free-solid-svg-icons";
+import { getAppProps } from "../../utils/getAppProps";
 
 export default function Post(props) {
 
@@ -44,6 +45,7 @@ export default function Post(props) {
 
 export const getServerSideProps = withPageAuthRequired({
   async getServerSideProps(ctx){
+     const props = await getAppProps(ctx);
     const userSession = await getSession(ctx.req,ctx.res);
     console.log("User session:", userSession.user.sub);
 
@@ -82,8 +84,7 @@ export const getServerSideProps = withPageAuthRequired({
         title : post.title,
         metaDescription : post.metaDescription,
         keywords : post.keywords,
-      
-        
+        ...props
       },
     };
   },
