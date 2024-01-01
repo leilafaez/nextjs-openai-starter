@@ -1,9 +1,11 @@
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import { AppLayout } from "../../components/AppLayout/AppLayout";
 import { useState } from "react";
+import { useRouter } from "next/router";
+import { getAppProps } from "../../utils/getAppProps";
 
 export default function NewPost() {
-  const [postContent,setPostContent]=useState('')
+  const router = useRouter();
   const[topic ,setTopic]=useState('')
   const[keywords ,setKeywords]=useState('')
 
@@ -26,12 +28,12 @@ export default function NewPost() {
      }
 
      const json = await response.json();
-     if (json.post && json.post.postContent) {
-       setPostContent(json.post.postContent);
-     } else {
-       // Handle the case where post or post.postContent is undefined
-       console.error("Error: Post content is undefined.");
+     console.log("RESULT :" ,json);
+     if(json?.postid){
+      router.push(`/post/${json.postid}`)
+
      }
+   
    } catch (error) {
      console.error("ERROR:", error);
    }
@@ -62,7 +64,6 @@ export default function NewPost() {
             </button>
        </form>
       
-      <div className="max-w-screen-sm p-10" dangerouslySetInnerHTML={{__html:postContent}}/>
     
     </div>
   )}
@@ -70,8 +71,11 @@ export default function NewPost() {
     return <AppLayout {...pageProps}>{page}</AppLayout>
   }
 
-  export const getServerSideProps =withPageAuthRequired(()=>{
-    return{
-      props :{ }
-    }
-  })
+  export const getServerSideProps = withPageAuthRequired({
+    async getServerSideProps(ctx) {
+      const props = await getAppProps(ctx);
+      return {
+        props,
+      };
+    },
+  });
