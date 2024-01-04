@@ -7,7 +7,7 @@ export default function Success() {
   
   return (
     <div>
-      <h1>hank you for your purchase!</h1>
+      <h1>Thank you for your purchase!</h1>
       
     </div>
   );
