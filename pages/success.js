@@ -3,22 +3,16 @@ import { AppLayout } from "../components/AppLayout/AppLayout";
 import { getAppProps } from "../utils/getAppProps";
 
 
-export default function TokenTopUp() {
-  const handleClick = async ()=>{
-   const result= await fetch(`/api/addTokens`,{
-      method: "POST",
-    })
-    const json=await result.json()
-    console.log('Result:',json);
-  }
+export default function Success() {
+  
   return (
     <div>
-      <h1>Token</h1>
-      <button className="btn" onClick={handleClick}>Add tokens</button>
+      <h1>hank you for your purchase!</h1>
+      
     </div>
   );
 }
- TokenTopUp.getLayout = function getLayout(page, pageProps) {
+ Success.getLayout = function getLayout(page, pageProps) {
    return <AppLayout {...pageProps}>{page}</AppLayout>;
  };
 
