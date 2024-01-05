@@ -5,9 +5,12 @@ import { getAppProps } from "../utils/getAppProps";
 
 export default function TokenTopUp() {
   const handleClick = async ()=>{
-    await fetch(`/api/addTokens`,{
+   const result= await fetch(`/api/addTokens`,{
       method: "POST",
     })
+    const json=await result.json()
+    console.log('Result:',json);
+    window.location.href=json.session.url;
   }
   return (
     <div>
