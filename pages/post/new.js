@@ -46,7 +46,7 @@ export default function NewPost() {
     return (
       <div className="h-full overflow-hidden">
         {!!generating && (
-          <div className="text-green-500 flex h-full animate-pluse w-full flex-col justify-center items-center">
+          <div className="text-green-500 flex h-full animate-pulse w-full flex-col justify-center items-center">
             <FontAwesomeIcon icon={faBrain} className="text-8xl" />
             <h6>Generating...</h6>
           </div>
@@ -65,6 +65,7 @@ export default function NewPost() {
                   className="resize-none border border-slate-500 w-full block my-2 px-4 py-2 rounded-sm"
                   value={topic}
                   onChange={(e) => setTopic(e.target.value)}
+                  maxLength={80}
                 />
               </div>
               <label>
@@ -74,12 +75,17 @@ export default function NewPost() {
                 className="resize-none border border-slate-500 w-full block my-2 px-4 py-2 rounded-sm"
                 value={keywords}
                 onChange={(e) => setKeywords(e.target.value)}
+                maxLength={80}
               />
               <small className="block mb-2">
                 Separate keywords with a comma
               </small>
               <div></div>
-              <button type="submit" className="btn">
+              <button
+                type="submit"
+                className="btn"
+                disabled={!topic.trim() || !keywords.trim()}
+              >
                 Generate
               </button>
             </form>
@@ -94,6 +100,15 @@ export default function NewPost() {
   export const getServerSideProps = withPageAuthRequired({
     async getServerSideProps(ctx) {
       const props = await getAppProps(ctx);
+       if (!props.availableTokens) {
+         return {
+           redirect: {
+             destination: "/token-topup",
+             permanent: false,
+           },
+         };
+       }
+
       return {
         props,
       };

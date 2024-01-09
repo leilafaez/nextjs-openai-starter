@@ -23,6 +23,16 @@ export default withApiAuthRequired (async function handler(req, res) {
 
   const { topic, keywords } = req.body;
 
+  if(!topic || !keywords){
+    res.status(422);
+    return;
+  }
+
+  if(topic.length > 80 || keywords.length >80){
+     res.status(422);
+     return;
+  }
+
    const postContentResult = await openai.createChatCompletion({
      model: "gpt-3.5-turbo",
      messages: [
