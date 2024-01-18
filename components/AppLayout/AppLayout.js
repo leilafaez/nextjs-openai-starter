@@ -1,21 +1,21 @@
 import Link from "next/link";
-import {UserContext, useUser} from "@auth0/nextjs-auth0/client";
+import { useUser} from "@auth0/nextjs-auth0/client";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoins } from "@fortawesome/free-solid-svg-icons";
 import { Logo } from "../Logo";
 import PostsContext from "../../context/postsContext";
-import { useEffect } from "react";
+import { useEffect,useContext } from "react";
 
 
 
 export const AppLayout=({children,availableTokens,posts:postsFromSSR ,postId})=>{
    const {user} = useUser();
-   const {setPostsFromSSR,posts}=UserContext(PostsContext)
+   const {setPostsFromSSR,posts}=useContext(PostsContext)
 
    useEffect(()=>{
-       setPostsFromSSR(postsFromSSR)
-   },[postsFromSSR,setPostsFromSSR])
+       setPostsFromSSR(postsFromSSR);
+   },[postsFromSSR,setPostsFromSSR]);
    
  return (
    <div className="grid grid-cols-[300px_1fr] h-screen max-h-screen">
@@ -42,6 +42,7 @@ export const AppLayout=({children,availableTokens,posts:postsFromSSR ,postId})=>
              {post.topic}
            </Link>
          ))}
+         <div className="hover:underline text-sm text-slate-500 text-center cursor-pointer mr-4">Load more posts</div>
        </div>
        <div className="bg-cyan-800 flex items-center gap-2 border-t border-t-black/50 h-20 px-2">
          {!!user ? (
