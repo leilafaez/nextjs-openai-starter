@@ -6,12 +6,12 @@ import { faCoins } from "@fortawesome/free-solid-svg-icons";
 import { Logo } from "../Logo";
 import PostsContext from "../../context/postsContext";
 import { useEffect,useContext } from "react";
-
+ 
 
 
 export const AppLayout=({children,availableTokens,posts:postsFromSSR ,postId})=>{
    const {user} = useUser();
-   const {setPostsFromSSR,posts}=useContext(PostsContext)
+   const {setPostsFromSSR,posts,getPosts}=useContext(PostsContext)
 
    useEffect(()=>{
        setPostsFromSSR(postsFromSSR);
@@ -42,7 +42,7 @@ export const AppLayout=({children,availableTokens,posts:postsFromSSR ,postId})=>
              {post.topic}
            </Link>
          ))}
-         <div className="hover:underline text-sm text-slate-500 text-center cursor-pointer mr-4">Load more posts</div>
+         <div  onClick={()=>getPosts({  lastPostDate:posts[posts.length-1].created})} className="hover:underline text-sm text-slate-500 text-center cursor-pointer mr-4">Load more posts</div>
        </div>
        <div className="bg-cyan-800 flex items-center gap-2 border-t border-t-black/50 h-20 px-2">
          {!!user ? (
