@@ -35,6 +35,6 @@ export const getAppProps = async (ctx)=>{
             ...rest
         })),
          postId: ctx.params?.postId || null,
-    }
+     }
 
 }
