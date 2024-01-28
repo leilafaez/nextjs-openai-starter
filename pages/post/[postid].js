@@ -130,6 +130,7 @@ export const getServerSideProps = withPageAuthRequired({
       }
     }
 
+
     return {
       props: {
         id: post._id.toString(),
@@ -138,6 +139,7 @@ export const getServerSideProps = withPageAuthRequired({
         metaDescription: post.metaDescription,
         keywords: post.keywords,
         ...props,
+
       },
     };
   },

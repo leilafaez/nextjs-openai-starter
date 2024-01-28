@@ -26,3 +26,4 @@ export default withApiAuthRequired(async function handler(req, res) {
   }
   return;
 });
+
