@@ -3,7 +3,7 @@ import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import { AppLayout } from "../components/AppLayout/AppLayout";
 import { getAppProps } from "../utils/getAppProps";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCoins } from "@fortawesome/free-solid-svg-icons"; // Assuming this is the icon you want to use
+import { faCoins } from "@fortawesome/free-solid-svg-icons"; 
 
 export default function TokenTopUp() {
   const handleClick = async () => {
