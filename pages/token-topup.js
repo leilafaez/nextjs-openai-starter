@@ -1,4 +1,3 @@
-// TokenTopUp.js
 
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import { AppLayout } from "../components/AppLayout/AppLayout";
@@ -8,8 +7,12 @@ import { faCoins } from "@fortawesome/free-solid-svg-icons"; // Assuming this is
 
 export default function TokenTopUp() {
   const handleClick = async () => {
-    // Your existing code for handling the click event
-  };
+    const result= await fetch(`/api/addTokens`,{
+      method: "POST",
+    })
+    const json=await result.json()
+    console.log('Result:',json);
+    window.location.href=json.session.url;  };
   return (
     <div className="w-full h-full flex flex-col overflow-auto">
       <div className="m-auto w-full max-w-screen-sm bg-slate-100 p-4 rounded-md shadow-xl border border-slate-200 shadow-slate-200">
