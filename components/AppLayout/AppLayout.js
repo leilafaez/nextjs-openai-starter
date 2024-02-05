@@ -51,10 +51,14 @@ export const AppLayout=({children,availableTokens,posts:postsFromSSR ,postId,pos
          ))}
          {!noMorePosts && (
            <div
-             onClick={() =>
-               getPosts({ lastPostDate: posts[posts.length - 1].created })
-             }
-             className="hover:underline text-sm text-slate-500 text-center cursor-pointer mt-4"
+             onClick={() => {
+               if (posts.length > 0) {
+                 getPosts({ lastPostDate: posts[posts.length - 1].created });
+               }
+             }}
+             className={`hover:underline text-sm text-slate-500 text-center cursor-pointer mt-4 ${
+               posts.length === 0 ? "opacity-50 pointer-events-none" : ""
+             }`}
            >
              Load more posts
            </div>
