@@ -1,35 +1,10 @@
-name: Push-to-EC2
+name: CI
 
-# Trigger deployment only on push to main branch
-on:
-  push:
-    branches:
-      - main
+on: [push]
 
 jobs:
-  deploy:
-    name: Deploy to EC2 on main branch push
+  build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout the files
-        uses: actions/checkout@v2
-
-      - name: Deploy to Server
-        uses: easingthemes/ssh-deploy@main
-        with:
-          ssh_private_key: ${{ secrets.ES2_SSH_KEY }}
-          remote_host: ${{ secrets.HOST_DNS }}
-          remote_user: ${{ secrets.USERNAME }}
-          target: ${{ secrets.TARGET_DIR }}
-
-      - name: Build and Deploy Next.js Application
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST_DNS }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.EC2_SSH_KEY }}
-          script: |
-            cd /home/ubuntu/nextjs-openai-starter
-            npm install
-            npm run build
+      - name: Checkout code
+        uses: actions/checkout@v3
