@@ -10,6 +10,7 @@ function postReducer(state,action) {
       const newPosts = [...state];
       action.posts.forEach((post) => {
         const exist = newPosts.find((p) => p._id === post._id);
+        
         if (!exist) {
           newPosts.push(post);
         }
